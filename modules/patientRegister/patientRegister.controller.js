@@ -2,9 +2,6 @@ const PatientRegister = require("./patientRegister.model");
 
 const createPatientRegister = async (req, res) => {
   try {
-    if (req.user?.email) {
-      req.body["creator_email"] = req.user?.email;
-    }
     const newPatientRegister = new PatientRegister(req.body);
     const result = await newPatientRegister.save();
     res.status(200).json({
@@ -23,7 +20,7 @@ const createPatientRegister = async (req, res) => {
 
 const getMyPatientRegisters = async (req, res) => {
   try {
-    if (req.user?.role === "Ädmin") {
+    if (req.user?.email === process.env.ADMIN_MAIL) {
       const result = await PatientRegister.find({}).sort({ _id: -1 });
       res.status(200).json({
         success: true,
@@ -31,9 +28,7 @@ const getMyPatientRegisters = async (req, res) => {
         data: result,
       });
     } else {
-      const result = await PatientRegister.find({
-        creator_email: req.user?.email,
-      }).sort({ _id: -1 });
+      const result = await PatientRegister.find({}).sort({ _id: -1 });
       res.status(200).json({
         success: true,
         message: "Patient Registers Retrieve Success",

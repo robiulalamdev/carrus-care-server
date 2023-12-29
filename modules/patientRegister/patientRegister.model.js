@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const patientRegisterSchema = new mongoose.Schema(
   {
+    email: {
+      type: String,
+      required: true,
+    },
     date: {
       type: String,
       required: true,
@@ -82,7 +86,7 @@ const patientRegisterSchema = new mongoose.Schema(
       },
       email: {
         type: String,
-        required: true,
+        required: false,
       },
       phone: {
         type: String,
@@ -102,10 +106,6 @@ const patientRegisterSchema = new mongoose.Schema(
       required: true,
     },
     reason_for_visit: {
-      type: String,
-      required: true,
-    },
-    creator_email: {
       type: String,
       required: true,
     },

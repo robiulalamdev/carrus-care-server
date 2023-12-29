@@ -2,25 +2,42 @@ const User = require("./user.model");
 const bcrcypt = require("bcryptjs");
 const randomstring = require("randomstring");
 const { generateToken, sendVerificationCode } = require("../../utils/auth");
+const PatientRegister = require("../patientRegister/patientRegister.model");
+
 const loginUser = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(401).send({
-        success: false,
-        type: "email",
-        message: "User not found",
+    if (req.body?.email === process.env.ADMIN_MAIL) {
+      const accessToken = await generateToken({
+        email: process.env.ADMIN_MAIL,
+        role: "Admin",
       });
-    }
-    if (user) {
-      const accessToken = await generateToken(user);
       return res.send({
         success: true,
         message: "Logged in successfully",
         status: 200,
-        user,
         accessToken,
       });
+    } else {
+      const user = await PatientRegister.findOne({
+        email: req.body.email,
+      }).select("email");
+      if (!user) {
+        return res.status(401).send({
+          success: false,
+          type: "email",
+          message: "User not found",
+        });
+      }
+      if (user) {
+        const accessToken = await generateToken(user);
+        return res.send({
+          success: true,
+          message: "Logged in successfully",
+          status: 200,
+          user,
+          accessToken,
+        });
+      }
     }
   } catch (err) {
     res.status(500).send({
@@ -28,18 +45,31 @@ const loginUser = async (req, res) => {
     });
   }
 };
+
 const userInfo = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.user?.email });
-    if (!user) {
-      return res.status(401).send({
-        success: false,
-        type: "email",
-        message: "User not found",
+    if (req.user?.email === process.env.ADMIN_MAIL) {
+      res.send({
+        email: process.env.ADMIN_MAIL,
+        role: "Admin",
       });
-    }
-    if (user) {
-      res.send(user);
+    } else {
+      const user = await PatientRegister.findOne({
+        email: req.user?.email,
+      }).select("email");
+      if (!user) {
+        return res.status(401).send({
+          success: false,
+          type: "email",
+          message: "User not found",
+        });
+      }
+      if (user) {
+        res.send({
+          email: user?.email,
+          role: "User",
+        });
+      }
     }
   } catch (err) {
     res.status(500).send({
