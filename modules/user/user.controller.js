@@ -65,9 +65,10 @@ const userInfo = async (req, res) => {
         });
       }
       if (user) {
-        res.send({
-          email: user?.email,
-          role: "User",
+        res.status(200).send({
+          success: true,
+          message: "User Get Success",
+          user: { email: user?.email, role: "User" },
         });
       }
     }
