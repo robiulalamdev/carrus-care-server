@@ -49,9 +49,10 @@ const loginUser = async (req, res) => {
 const userInfo = async (req, res) => {
   try {
     if (req.user?.email === process.env.ADMIN_MAIL) {
-      res.send({
-        email: process.env.ADMIN_MAIL,
-        role: "Admin",
+      res.status(200).send({
+        success: true,
+        message: "User Get Success",
+        user: { email: process.env.ADMIN_MAIL, role: "Admin" },
       });
     } else {
       const user = await PatientRegister.findOne({
