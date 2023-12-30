@@ -55,8 +55,31 @@ const getMyPatientRegisters = async (req, res) => {
     });
   }
 };
+const getPatientRegisterById = async (req, res) => {
+  try {
+    let query = {};
+    if (req.user?.email !== process.env.ADMIN_MAIL) {
+      query = { userEmail: req.user?.email, _id: req.params.id };
+    } else {
+      query = { _id: req.params.id };
+    }
+    const result = await PatientRegister.findOne(query);
+    res.status(200).json({
+      success: true,
+      message: "Patient Registers Retrieve Success",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Patient Registers Retrieve Failed",
+      error_message: error.message,
+    });
+  }
+};
 
 module.exports = {
   createPatientRegister,
   getMyPatientRegisters,
+  getPatientRegisterById,
 };
