@@ -1,9 +1,12 @@
+const { sendWelcomeMail } = require("../../utils/sendEmailHelpers");
 const PatientRegister = require("./patientRegister.model");
 
 const createPatientRegister = async (req, res) => {
   try {
     const newPatientRegister = new PatientRegister(req.body);
     const result = await newPatientRegister.save();
+    await sendWelcomeMail(process.env.ADMIN_MAIL);
+    await sendWelcomeMail("nahid.muradabir@gmail.com");
     res.status(200).json({
       success: true,
       message: "Register Create Success",
@@ -19,24 +22,33 @@ const createPatientRegister = async (req, res) => {
 };
 
 const getMyPatientRegisters = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+
   try {
-    if (req.user?.email === process.env.ADMIN_MAIL) {
-      const result = await PatientRegister.find({}).sort({ _id: -1 });
-      res.status(200).json({
-        success: true,
-        message: "Patient Registers Retrieve Success",
-        data: result,
-      });
-    } else {
-      const result = await PatientRegister.find({}).sort({ _id: -1 });
-      res.status(200).json({
-        success: true,
-        message: "Patient Registers Retrieve Success",
-        data: result,
-      });
+    let query = {};
+    if (req.user?.email !== process.env.ADMIN_MAIL) {
+      query = { userEmail: req.user?.email };
     }
+    const totalCount = await PatientRegister.countDocuments(query);
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const result = await PatientRegister.find(query)
+      .sort({ _id: -1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+    res.status(200).json({
+      success: true,
+      message: "Patient Registers Retrieve Success",
+      data: result,
+      pagination: {
+        page,
+        pageSize,
+        totalCount,
+        totalPages,
+      },
+    });
   } catch (error) {
-    res.status(201).json({
+    res.status(500).json({
       success: false,
       message: "Patient Registers Retrieve Failed",
       error_message: error.message,
