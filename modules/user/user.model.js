@@ -6,11 +6,20 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       enum: ["Admin", "Manager"],
       required: true,
       default: "Manager",
+    },
+    isVerified: {
+      type: Boolean,
+      enum: [true, false],
+      required: true,
     },
   },
   {
