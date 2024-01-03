@@ -1,4 +1,6 @@
+const PrfOne = require("../prfOne/prfOne.model");
 const PrfThree = require("../prfThree/prfThree.model");
+const PrfTwo = require("../prfTwo/prfTwo.model");
 
 const getMyRegisters = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
@@ -6,19 +8,33 @@ const getMyRegisters = async (req, res) => {
   try {
     let query = {};
     if (req.user?.email !== process.env.ADMIN_MAIL) {
-      query = { userEmail: req.user?.email };
+      query = { email: req.user?.email };
     }
-    const totalCount = await PrfThree.countDocuments(query);
+    const totalCount = await PrfOne.countDocuments(query);
 
-    const result = await PrfThree.find(query)
+    const result = await PrfOne.find(query)
       .sort({ _id: -1 })
       .skip((page - 1) * pageSize)
       .limit(pageSize)
-      .populate({
-        path: "prfTwo",
-        populate: {
-          path: "prfOne",
-        },
+      .then(async function (resultItems) {
+        const populatedRegisterInfos = await Promise.all(
+          resultItems?.map(async (item) => {
+            const prfTwoData = await PrfTwo.findOne({
+              prfOne: item._id,
+              ...query,
+            });
+            const prfThreeData = await PrfThree.findOne({
+              prfOne: item._id,
+              ...query,
+            });
+            return {
+              prfOneData: item,
+              prfTwoData,
+              prfThreeData,
+            };
+          })
+        );
+        return populatedRegisterInfos;
       });
 
     res.status(200).json({

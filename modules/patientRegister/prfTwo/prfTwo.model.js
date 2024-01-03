@@ -10,7 +10,6 @@ const prfTwoSchema = new mongoose.Schema(
     prfOne: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "PrfOne",
-      default: "659537340f33b2a6389f306f",
       required: true,
     },
     patient_statement_signature: {

@@ -7,9 +7,9 @@ const prfThreeSchema = new mongoose.Schema(
       default: "nahid.muradabir@gmail.com",
       required: true,
     },
-    prfTwo: {
+    prfOne: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "PrfTwo",
+      ref: "PrfOne",
       required: true,
     },
     effective_time_period: {
