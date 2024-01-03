@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 8000;
 
 // routes
 const userRoutes = require("./modules/user/user.routes");
+const patientRegisterRoutes = require("./modules/patientRegister/patientRegister/patientRegister.routes");
+
 const prfOneRoutes = require("./modules/patientRegister/prfOne/prfOne.routes");
 const prfTwoRoutes = require("./modules/patientRegister/prfTwo/prfTwo.routes");
 const prfThreeRoutes = require("./modules/patientRegister/prfThree/prfThree.routes");
@@ -24,6 +26,7 @@ connectDB();
 
 // routes
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/patient-registers", patientRegisterRoutes);
 app.use("/api/v1/prf-one", prfOneRoutes);
 app.use("/api/v1/prf-two", prfTwoRoutes);
 app.use("/api/v1/prf-three", prfThreeRoutes);

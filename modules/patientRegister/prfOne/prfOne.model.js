@@ -127,7 +127,7 @@ const prfOneSchema = new mongoose.Schema(
         required: true,
       },
       report: {
-        type: Boolean,
+        type: String,
         required: true,
       },
       type_of_accident: {
@@ -175,50 +175,7 @@ const prfOneSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    effective_time_period: {
-      day: {
-        type: Number,
-        required: true,
-      },
-      month: {
-        type: Number,
-        required: true,
-      },
-      year: {
-        type: Number,
-        required: true,
-      },
-    },
-    health_care_entity_authorized_information: {
-      address: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      fax: {
-        type: String,
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      phone: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        required: true,
-      },
-      zip_code: {
-        type: String,
-        required: true,
-      },
-    },
+
     in_case_of_emergency: {
       name_of_local_relative: {
         type: String,
@@ -229,54 +186,7 @@ const prfOneSchema = new mongoose.Schema(
         required: true,
       },
     },
-    include: {
-      drug_alcohol_or_substance_abuse_record: {
-        type: String,
-        required: true,
-      },
-      genetic_information: {
-        type: String,
-        required: true,
-      },
-      hiv_aids_information: {
-        type: String,
-        required: true,
-      },
-      mental_health_record: {
-        type: String,
-        required: true,
-      },
-    },
-    information_regarding_person: {
-      address: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      fax: {
-        type: String,
-        required: true,
-      },
-      name: {
-        type: String,
-        required: true,
-      },
-      phone: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        required: true,
-      },
-      zip_code: {
-        type: String,
-        required: true,
-      },
-    },
+
     insurance_information: {
       auto_accident: {
         type: Boolean,
@@ -319,45 +229,6 @@ const prfOneSchema = new mongoose.Schema(
         required: true,
       },
     },
-
-    patient_information_for_authorization: {
-      address: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      date_of_birth: {
-        type: Date,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: false,
-      },
-      full_name: {
-        type: String,
-        required: true,
-      },
-      other_name: {
-        type: String,
-        required: true,
-      },
-      phone: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        required: true,
-      },
-      zip: {
-        type: String,
-        required: true,
-      },
-    },
     patient_signature: {
       type: String,
       required: true,
@@ -366,55 +237,6 @@ const prfOneSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    patient_statement_signature: {
-      type: String,
-      required: true,
-    },
-    patient_statement_signature_date: {
-      type: Date,
-      required: true,
-    },
-    reason_for_release_information: {
-      treatment_medical_care: {
-        type: Boolean,
-        required: false,
-      },
-      personal_use: {
-        type: Boolean,
-        required: false,
-      },
-      billing_or_claims: {
-        type: Boolean,
-        required: false,
-      },
-      insurance: {
-        type: Boolean,
-        required: false,
-      },
-      legal_purposes: {
-        type: Boolean,
-        required: false,
-      },
-      disability_determination: {
-        type: Boolean,
-        required: false,
-      },
-      school: {
-        type: Boolean,
-        required: false,
-      },
-      employment: {
-        type: Boolean,
-        required: false,
-      },
-      other: {
-        type: Object,
-        status: Boolean,
-        message: String,
-        required: false,
-      },
-    },
-
     reason_for_visit: {
       type: String,
       required: true,
@@ -430,54 +252,6 @@ const prfOneSchema = new mongoose.Schema(
     responsible_party_witness_signature_date: {
       type: Date,
       required: true,
-    },
-    signatures: {
-      legal_representative_relationship_to_patient_signature: {
-        type: String,
-        required: true,
-      },
-      patient_representative_signature: {
-        type: String,
-        required: true,
-      },
-      patient_representative_signature_date: {
-        type: Date,
-        required: true,
-      },
-      signature_of_minor: {
-        type: String,
-        required: true,
-      },
-      signature_of_minor_date: {
-        type: Date,
-        required: true,
-      },
-      witness_signature: {
-        type: String,
-        required: true,
-      },
-      witness_signature_date: {
-        type: Date,
-        required: true,
-      },
-    },
-    specific_information: {
-      medical_record_from_date: {
-        type: Date,
-        required: false,
-      },
-      medical_record_to_date: {
-        type: Date,
-        required: false,
-      },
-      other_value: {
-        type: String,
-        required: false,
-      },
-      type: {
-        type: String,
-        required: true,
-      },
     },
   },
   {
