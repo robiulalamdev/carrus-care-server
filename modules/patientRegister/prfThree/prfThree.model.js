@@ -179,34 +179,42 @@ const prfThreeSchema = new mongoose.Schema(
     reason_for_release_information: {
       treatment_medical_care: {
         type: Boolean,
+        default: false,
         required: false,
       },
       personal_use: {
         type: Boolean,
+        default: false,
         required: false,
       },
       billing_or_claims: {
         type: Boolean,
+        default: false,
         required: false,
       },
       insurance: {
         type: Boolean,
+        default: false,
         required: false,
       },
       legal_purposes: {
         type: Boolean,
+        default: false,
         required: false,
       },
       disability_determination: {
         type: Boolean,
+        default: false,
         required: false,
       },
       school: {
         type: Boolean,
+        default: false,
         required: false,
       },
       employment: {
         type: Boolean,
+        default: false,
         required: false,
       },
       other: {
