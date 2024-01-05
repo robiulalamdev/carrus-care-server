@@ -228,12 +228,12 @@ const prfOneSchema = new mongoose.Schema(
     },
 
     insurance_information: {
-      auto_accident: {
-        type: Boolean,
-        default: false,
-        required: false,
-        // required: true,
-      },
+      // auto_accident: {
+      //   type: Boolean,
+      //   default: false,
+      //   required: false,
+      //   // required: true,
+      // },
       group_number: {
         type: String,
         required: false,
