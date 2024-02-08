@@ -87,7 +87,7 @@ const prfOneSchema = new mongoose.Schema(
         required: false,
         // required: true,
       },
-      salutation: {
+      martial_status: {
         type: String,
         required: false,
         // required: true,
@@ -147,6 +147,14 @@ const prfOneSchema = new mongoose.Schema(
         type: String,
         required: false,
         // required: true,
+      },
+      insurance_phone_number: {
+        type: String,
+        required: false,
+      },
+      insurance_fax_number: {
+        type: String,
+        required: false,
       },
       policy_number: {
         type: String,
@@ -225,6 +233,11 @@ const prfOneSchema = new mongoose.Schema(
         required: false,
         // required: true,
       },
+      phone_number: {
+        type: String,
+        required: false,
+        // required: true,
+      },
     },
 
     insurance_information: {
@@ -245,6 +258,11 @@ const prfOneSchema = new mongoose.Schema(
         // required: true,
       },
       patient_relationship_subscriber: {
+        type: String,
+        required: false,
+        // required: true,
+      },
+      patient_relationship_subscriber_other: {
         type: String,
         required: false,
         // required: true,
