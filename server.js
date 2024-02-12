@@ -13,6 +13,7 @@ const prfThreeRoutes = require("./modules/patientRegister/prfThree/prfThree.rout
 
 const app = express();
 const http = require("http");
+const path = require("path");
 const Server = http.createServer(app);
 
 // middleware
@@ -30,6 +31,9 @@ app.use("/api/v1/patient-registers", patientRegisterRoutes);
 app.use("/api/v1/prf-one", prfOneRoutes);
 app.use("/api/v1/prf-two", prfTwoRoutes);
 app.use("/api/v1/prf-three", prfThreeRoutes);
+
+// static file serving
+app.use("/api/v1/uploads", express.static(path.join(__dirname, "/")));
 
 // testing api
 app.get("/", (req, res) => {

@@ -111,6 +111,10 @@ const prfOneSchema = new mongoose.Schema(
         required: false,
         // required: true,
       },
+      picture: {
+        type: String,
+        required: false,
+      },
     },
     accident_related: {
       adjuster_name: {
@@ -241,12 +245,19 @@ const prfOneSchema = new mongoose.Schema(
     },
 
     insurance_information: {
-      // auto_accident: {
-      //   type: Boolean,
-      //   default: false,
-      //   required: false,
-      //   // required: true,
-      // },
+      auto_accident: {
+        type: String,
+        default: "Yes",
+        required: true,
+      },
+      front_picture: {
+        type: String,
+        required: false,
+      },
+      back_picture: {
+        type: String,
+        required: false,
+      },
       group_number: {
         type: String,
         required: false,

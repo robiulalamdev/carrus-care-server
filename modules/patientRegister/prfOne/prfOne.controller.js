@@ -3,7 +3,21 @@ const PrfOne = require("./prfOne.model");
 
 const createPROne = async (req, res) => {
   try {
-    const newPatientRegister = new PrfOne(req.body);
+    let newData = JSON.parse(req.body.storeData);
+    if (req.files) {
+      if (req.files.picture) {
+        newData["patient_information"]["picture"] = req.files.picture[0].path;
+      }
+      if (req.files.front_picture) {
+        newData["insurance_information"]["front_picture"] =
+          req.files.front_picture[0].path;
+      }
+      if (req.files.back_picture) {
+        newData["insurance_information"]["back_picture"] =
+          req.files.back_picture[0].path;
+      }
+    }
+    const newPatientRegister = new PrfOne(newData);
     const result = await newPatientRegister.save();
     await sendWelcomeMail(process.env.ADMIN_MAIL);
     await sendWelcomeMail("nahid.muradabir@gmail.com");
