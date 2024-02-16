@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.post(
   "/create",
-  isAuth,
   upload.fields([
     { name: "picture", maxCount: 1 },
     { name: "front_picture", maxCount: 1 },
