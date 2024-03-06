@@ -92,6 +92,11 @@ const prfOneSchema = new mongoose.Schema(
         required: false,
         // required: true,
       },
+      gender: {
+        type: String,
+        required: false,
+        // required: true,
+      },
       service: {
         type: String,
         required: false,
