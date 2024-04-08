@@ -57,6 +57,44 @@ const getMyRegisters = async (req, res) => {
   }
 };
 
+const getMyRegister = async (req, res) => {
+  try {
+    const result = await PrfOne.find({ _id: req.params.id }).then(
+      async function (resultItems) {
+        const populatedRegisterInfos = await Promise.all(
+          resultItems?.map(async (item) => {
+            const prfTwoData = await PrfTwo.findOne({
+              prfOne: item._id,
+            });
+            const prfThreeData = await PrfThree.findOne({
+              prfOne: item._id,
+            });
+            return {
+              prfOneData: item,
+              prfTwoData,
+              prfThreeData,
+            };
+          })
+        );
+        return populatedRegisterInfos;
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Registers Retrieve Success",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Registers Retrieve Failed",
+      error_message: error.message,
+    });
+  }
+};
+
 module.exports = {
   getMyRegisters,
+  getMyRegister,
 };
